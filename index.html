@@ -436,6 +436,9 @@
     <details class="qa"><summary>焼き上がりが硬い②：ゴムっぽく噛み切れない</summary>
       <div class="qa-body">グルテンが強すぎるか、発酵不足のサイン。対策は3つ：①ゆめちからを360g→240gに減らして比較 ②発酵の見極めを高さ測定＋フィンガーテストで ③冷蔵生地は焼く1〜2時間前に必ず室温へ（冷たいままだと窯伸びしません）。</div></details>
 
+    <details class="qa"><summary>耳（コルニチョーネ）を柔らかくしたい</summary>
+      <div class="qa-body">効く順に3つ：①伸ばすとき<b>外周2cmは絶対に触らず</b>、中心を押し広げてガスを耳に寄せる（耳を潰すとどんな配合でも硬くなる）②上火を10〜20℃上げて焼き時間を短く。上から一気に膨らませて水分を中に残す ③焼き上がりに耳へオリーブオイルを刷毛でひと塗り（箱に入れる直前）。配合で追うならオイルを72g（対粉3%）に。</div></details>
+
     <details class="qa"><summary>生地が縮んで伸ばせない</summary>
       <div class="qa-body">グルテンが張っている状態。10〜15分置くと緩んで伸ばせます。毎回縮むなら、玉出し後の休ませ時間を長くするか、ゆめちからの比率を下げてください。</div></details>
 
@@ -470,7 +473,7 @@
       コシ・モチ感・窯伸びの担当。強さはマニトバ級だが弾力が強く、入れすぎると縮み・ゴム化の原因に。
       <div class="ing-updown">⬆ 480gまで→モチ感アップ・縮み注意／⬇ 240gまで→軽く伸ばしやすく</div></div>
 
-    <div class="ing-card"><span class="ing-name">水</span><span class="ing-amount">計1600ml・加水67%</span><br>
+    <div class="ing-card"><span class="ing-name">水</span><span class="ing-amount">ビガ640＋本捏ね990ml・加水68%</span><br>
       軽さと気泡の担当。仕込み水温は「63−粉温−室温」で計算するのが安定の鍵。
       <div class="ing-updown">⬆ 加水を上げる→ふんわり軽く・ベタつき増／⬇ 下げる→扱いやすいが目が詰まる。10g単位で動かして仕上がり評価で比較</div></div>
 
@@ -482,9 +485,13 @@
       発酵の原動力。鮮度が命で、開封から日が経つと発酵力が2〜3割落ちて「日によって違う」の原因に。冷蔵で約2週間で使い切り。
       <div class="ing-updown">⬆ 増やす→速く膨らむが風味浅い／⬇ 減らす→ゆっくり・風味深いが時間管理シビア</div></div>
 
-    <div class="ing-card"><span class="ing-name">米麹パウダー</span><span class="ing-amount">24g・対粉1%</span><br>
+    <div class="ing-card"><span class="ing-name">米麹パウダー</span><span class="ing-amount">12g</span><br>
       酵素がデンプンを糖に変え、甘み・旨み・焼き色を良くする隠し味。<b>必ず本捏ねで入れる</b>（ビガに入れると16時間の酵素作用でグルテンが分解され、生地が不安定になる）。
       <div class="ing-updown">効果：甘み・旨み・焼き色⬆／二次発酵がやや速まるので見極め注意</div></div>
+
+    <div class="ing-card"><span class="ing-name">オリーブオイル</span><span class="ing-amount">60g・対粉2.5%</span><br>
+      保水して冷めても柔らかく、生地の老化を遅らせる。網への張り付きも軽くなる。<b>必ず最後に</b>（塩を入れてなめらかになってから2回に分けて）加える。最初に入れると油が粉をコーティングしてグルテンがつながりにくい。
+      <div class="ing-updown">⬆ 72g（対粉3%）まで→耳がさらにしっとり／⬇ 減らす→焼きたての軽さは増すが冷めると硬くなりやすい</div></div>
 
     <div class="ing-card"><span class="ing-name">ビガ（前発酵）そのもの</span><span class="ing-amount">粉の50%を前日仕込み</span><br>
       風味の深み・窯伸び・軽い食感・消化の良さの源。鉄則は3つ：捏ねない（そぼろ状で止める）・密閉しない（酸素も必要）・時間ぴったりで使う。
@@ -533,8 +540,9 @@
       <label class="f-label">メモ <span class="opt">気泡・香り・手ざわりなど</span></label>
       <textarea id="f-memo" placeholder="例：気泡細かい、香り甘め、少しベタつく"></textarea>
 
-      <label class="f-label">担当者</label>
-      <input type="text" id="f-staff" placeholder="名前">
+      <label class="f-label">担当者 <span class="opt">タップで選択</span></label>
+      <div class="stage-select" id="f-staff-pills" style="margin-bottom:8px"></div>
+      <input type="text" id="f-staff" placeholder="リストにない場合は名前を入力">
 
       <div style="margin-top:18px">
         <button class="btn-primary" id="f-save" onclick="saveRecord()">保存する</button>
@@ -580,6 +588,10 @@ const SIZE_TARGETS = {
 
 // ▼▼▼ 配合の初期値：レシピを変えたらここを書き換え ▼▼▼
 // フォームを開くと自動で入っています（その日だけ変えた場合は画面で書き換えればOK）
+// ▼▼▼ 担当者リスト：メンバーの入れ替えはここを書き換え ▼▼▼
+const STAFF_LIST = ['弥冨', '石橋', '秋山', '古武家'];
+// ▲▲▲ ここまで ▲▲▲
+
 // ▼▼▼ 工程ごとに室温へ自動入力するセンサー名（SwitchBotの設置名と一致させる）▼▼▼
 const STAGE_SENSOR = {
   'ビガ仕込み': 'ビガ置き場',
@@ -590,8 +602,8 @@ const STAGE_SENSOR = {
 // ▲▲▲ ここまで ▲▲▲
 
 const INGREDIENT_DEFAULTS = {
-  'ビガ仕込み': { flourPizza: 840, flourYume: 360, water: 540, yeast: 12 },
-  '本捏ね': { flourPizza: 1200, water: 1060, salt: 52, yeast: 12, koji: 24 },
+  'ビガ仕込み': { flourPizza: 840, flourYume: 360, water: 640, yeast: 12 },
+  '本捏ね': { flourPizza: 1200, water: 990, salt: 52, yeast: 12, koji: 12, oil: 60 },
   '分割・丸め': { ballWeight: 190 },
   '焼成・結果': { ovenTop: 395, ovenBottom: 460, bakeSec: 80 }
 };
@@ -606,7 +618,7 @@ const STAGES = [
     temps: [['roomTemp','室温 (℃)']],
     ferment: true, quality: false },
   { name: '本捏ね', short: '本捏ね', color: 'var(--st-main)', colorHex: '#9C5B21',
-    temps: [['flourPizza','ピッツァ用粉 (g)'], ['water','水 (ml)'], ['salt','塩 (g)'], ['yeast','生イースト (g)'], ['koji','米麹パウダー (g)'], ['roomTemp','室温 (℃)'], ['doughTemp','捏ね上げ温度 (℃)']],
+    temps: [['flourPizza','ピッツァ用粉 (g)'], ['water','水 (ml)'], ['salt','塩 (g)'], ['yeast','生イースト (g)'], ['koji','米麹パウダー (g)'], ['oil','オリーブオイル (g)'], ['roomTemp','室温 (℃)'], ['doughTemp','捏ね上げ温度 (℃)']],
     ferment: false, quality: false },
   { name: '分割・丸め', short: '分割', color: 'var(--st-divide)', colorHex: '#6E5A8E',
     temps: [['doughWeight','総生地量 (g)'], ['ballWeight','玉重量 (g)'], ['balls','玉数 (個)']],
@@ -624,20 +636,20 @@ const TEMP_LABELS = {
   doughTemp: '捏ね上げ', yeast: '生イースト', balls: '玉数',
   flourPizza: 'ピッツァ用粉', flourYume: 'ゆめちから', water: '水', salt: '塩', koji: '米麹',
   doughWeight: '総生地量', ballWeight: '玉重量',
-  ovenTop: '窯上火', ovenBottom: '窯下火', bakeSec: '焼成時間'
+  ovenTop: '窯上火', ovenBottom: '窯下火', bakeSec: '焼成時間', oil: 'オリーブオイル'
 };
 const TEMP_UNITS = {
   flourTemp: '℃', roomTemp: '℃', waterTemp: '℃',
   doughTemp: '℃', yeast: 'g', balls: '個',
   flourPizza: 'g', flourYume: 'g', water: 'ml', salt: 'g', koji: 'g',
   doughWeight: 'g', ballWeight: 'g',
-  ovenTop: '℃', ovenBottom: '℃', bakeSec: '秒'
+  ovenTop: '℃', ovenBottom: '℃', bakeSec: '秒', oil: 'g'
 };
 // ↑↓ボタンの刻み幅：粉・生地・玉は10g、水・塩・イースト・麹は1g、温度は0.1℃
 const INPUT_STEPS = {
   flourPizza: 10, flourYume: 10, doughWeight: 10, ballWeight: 10, water: 10,
   salt: 1, yeast: 1, koji: 1, balls: 1,
-  ovenTop: 5, ovenBottom: 5, bakeSec: 5
+  ovenTop: 5, ovenBottom: 5, bakeSec: 5, oil: 1
 };
 function stepFor(key) { return INPUT_STEPS[key] !== undefined ? INPUT_STEPS[key] : 0.1; }
 
@@ -794,7 +806,7 @@ function renderDetail() {
     html += '<span class="rec-time">' + fmtTime(r._time) + '</span>';
 
     const temps = [];
-    for (const key of ['flourPizza', 'flourYume', 'water', 'salt', 'koji', 'yeast', 'doughWeight', 'ballWeight', 'flourTemp', 'roomTemp', 'waterTemp', 'doughTemp', 'balls', 'ovenTop', 'ovenBottom', 'bakeSec']) {
+    for (const key of ['flourPizza', 'flourYume', 'water', 'salt', 'koji', 'yeast', 'doughWeight', 'ballWeight', 'flourTemp', 'roomTemp', 'waterTemp', 'doughTemp', 'oil', 'balls', 'ovenTop', 'ovenBottom', 'bakeSec']) {
       if (r[key] !== '' && r[key] !== null && r[key] !== undefined) {
         temps.push('<div class="temp-item">' + TEMP_LABELS[key] + '　<b>' + r[key] + '</b>' + TEMP_UNITS[key] + '</div>');
       }
@@ -904,6 +916,7 @@ function setupFormCommon() {
   d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
   document.getElementById('f-time').value = d.toISOString().slice(0, 16);
   document.getElementById('f-staff').value = loadName();
+  renderStaffPills();
   document.getElementById('f-memo').value = '';
   formState.photoData = '';
   document.getElementById('f-photo').value = '';
@@ -1176,6 +1189,23 @@ function autoFillRoomTemp() {
   }
 }
 
+function renderStaffPills() {
+  const wrap = document.getElementById('f-staff-pills');
+  if (!wrap) return;
+  const current = document.getElementById('f-staff').value.trim();
+  wrap.innerHTML = STAFF_LIST.map(n =>
+    '<button type="button" class="stage-pill' + (current === n ? ' on' : '') + '"' +
+    (current === n ? ' style="background:var(--primary)"' : '') +
+    ' onclick="selectStaff(\'' + n + '\')">' + n + '</button>'
+  ).join('');
+}
+
+function selectStaff(name) {
+  document.getElementById('f-staff').value = name;
+  saveName(name);
+  renderStaffPills();
+}
+
 function renderFermentButtons() {
   document.getElementById('f-ferment').innerHTML = FERMENT_LABELS.map((label, idx) => {
     const v = idx + 1;
@@ -1192,6 +1222,8 @@ function renderStars() {
 }
 
 // ---------- 写真（縮小してからアップロード） ----------
+document.getElementById('f-staff').addEventListener('input', renderStaffPills);
+
 document.getElementById('f-photo').addEventListener('change', function () {
   const file = this.files[0];
   if (!file) return;
@@ -1301,8 +1333,8 @@ function renderDetailPlaceholder() {
 // ---------- 写真からサイズ測定 ----------
 // 仕組み：写真に写した基準物（500円玉など）の両端をタップ→実寸との比率を計算
 // →生地の両端をタップすると実寸(mm)がわかる
-const M = { img: null, refPts: [], doughPts: [], refLen: 26.5, phase: 'ref' };
-const M_PRESETS = [['500円玉', 26.5], ['100円玉', 22.6], ['1円玉', 20.0], ['名刺の長辺', 91.0]];
+const M = { img: null, refPts: [], doughPts: [], refLen: 65, phase: 'ref' };
+const M_PRESETS = [['番重の高さ', 65], ['番重の縦', 300], ['番重の横', 500], ['500円玉', 26.5], ['名刺の長辺', 91.0]];
 
 function openMeasure() {
   if (!formState.photoData) return;
